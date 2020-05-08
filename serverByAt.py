@@ -61,7 +61,7 @@ class ClientProtocol(asyncio.Protocol):
             for cur_mes in self.server.message_list:
                 self.transport.write((cur_mes+"\n").encode())
         else:
-            for i in range(count_messages - 10, count_messages - 1):
+            for i in range(count_messages - 10, count_messages):
                 self.transport.write((self.server.message_list[i]+"\n").encode())
 
 
