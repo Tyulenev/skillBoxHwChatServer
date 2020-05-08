@@ -42,12 +42,14 @@ class ClientProtocol(asyncio.Protocol):
                         self.transport.write(
                             f"Логин, {self.login} занят!".encode()
                         )
-                        self.connection_lost(exception=NameError)
+                        #self.connection_lost(exception=NameError)
+                        #self.transport.abort()
+                        self.transport.close()
                         break
 
                     if login1 == loginList[-1]:
                         self.transport.write(
-                            f"Привет, {self.login}!".encode()
+                            f"Привет, {self.login}!\n".encode()
                         )
                         self.send_history()
 
@@ -85,7 +87,6 @@ class ClientProtocol(asyncio.Protocol):
     def connection_lost(self, exception):
         self.server.clients.remove(self)
         print(f"Соединение разорвано c клиентом {self.login}")
-
 
 
 class Server:
